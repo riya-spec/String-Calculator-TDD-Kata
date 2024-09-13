@@ -6,12 +6,25 @@ function add(numbers) {
     let delimiter = ',';
     if (numbers.startsWith("//")) {
       const parts = numbers.split('\n', 2);
-      delimiter = parts[0].substring(2); // Extract custom delimiter
-      numbers = parts[1]; // Update numbers to exclude the delimiter line
+      delimiter = parts[0].substring(2);
+      numbers = parts[1];
     }
   
-    const numList = numbers.replace(/\n/g, delimiter).split(delimiter); // Replace newline and split by delimiter
+    const numList = numbers.replace(/\n/g, delimiter).split(delimiter);
   
-    return numList.reduce((sum, num) => sum + parseInt(num, 10), 0);
+    const negatives = [];
+    const sum = numList.reduce((sum, num) => {
+      const n = parseInt(num, 10);
+      if (n < 0) {
+        negatives.push(n);
+      }
+      return sum + n;
+    }, 0);
+  
+    if (negatives.length > 0) {
+      throw new Error(`negative numbers not allowed: ${negatives.join(', ')}`);
+    }
+  
+    return sum;
   }
   
