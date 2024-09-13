@@ -3,8 +3,8 @@ function add(numbers) {
       return 0;
     }
   
-    const numList = numbers.split(','); // Split by comma
+    const numList = numbers.replace(/\n/g, ',').split(','); // Replace newline with comma and split
   
-    return numList.reduce((sum, num) => sum + parseInt(num, 10), 0); // Sum all numbers
+    return numList.reduce((sum, num) => sum + parseInt(num, 10), 0);
   }
   
